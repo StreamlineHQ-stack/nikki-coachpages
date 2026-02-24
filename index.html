@@ -880,8 +880,11 @@ footer {
 
     <!-- NETLIFY FORM -->
     <div class="form-wrap reveal d1" id="form-container">
-      <form name="coach-audit" method="POST" data-netlify="true" onsubmit="handleSubmit(event)">
-        <input type="hidden" name="form-name" value="coach-audit">
+     <form name="coach-audit" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+    <input type="hidden" name="form-name" value="coach-audit">
+<p hidden>
+  <label>Don’t fill this out: <input name="bot-field"></label>
+</p>
 
         <!-- Q1 -->
         <div class="form-group">
