@@ -884,7 +884,8 @@ footer {
       method="POST"
       action="/"
       data-netlify="true"
-      netlify-honeypot="bot-field">
+      netlify-honeypot="bot-field"
+      onsubmit="handleSubmit(event)">
     <input type="hidden" name="form-name" value="coach-audit">
 <p hidden>
   <label>Don’t fill this out: <input name="bot-field"></label>
@@ -972,6 +973,34 @@ footer {
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
 
+  function encode(data) {
+  return Object.keys(data)
+    .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+    .join("&");
+}
+
+async function handleSubmit(e) {
+  e.preventDefault();
+  const form = e.target;
+
+  const formData = new FormData(form);
+  const data = {};
+  formData.forEach((value, key) => data[key] = value);
+
+  try {
+    await fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: encode(data)
+    });
+
+    document.getElementById("form-container").style.display = "none";
+    document.getElementById("form-thankyou").style.display = "block";
+
+  } catch (error) {
+    alert("Something went wrong. Please try again.");
+  }
+}
 </script>
 </body>
 </html>
