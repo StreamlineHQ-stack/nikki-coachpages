@@ -880,7 +880,11 @@ footer {
 
     <!-- NETLIFY FORM -->
     <div class="form-wrap reveal d1" id="form-container">
-     <form name="coach-audit" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+    <form name="coach-audit"
+      method="POST"
+      action="/"
+      data-netlify="true"
+      netlify-honeypot="bot-field">
     <input type="hidden" name="form-name" value="coach-audit">
 <p hidden>
   <label>Don’t fill this out: <input name="bot-field"></label>
@@ -967,31 +971,7 @@ footer {
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-  // Form submit — show thank you state instead of redirecting
-  async function handleSubmit(e) {
-    e.preventDefault();
-    const form = e.target;
-    const data = new FormData(form);
-    try {
-      await fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(data).toString()
-      });
-      document.getElementById('form-container').style.display = 'none';
-      document.getElementById('form-thankyou').style.display = 'block';
-    } catch (err) {
-      alert('Something went wrong — please DM me on Instagram directly.');
-    }
-  }
+
 </script>
-
-  <!-- Hidden Netlify Form Registration -->
-<form name="coach-audit" data-netlify="true" hidden>
-  <input type="text" name="coaching_type" />
-  <input type="text" name="situation" />
-  <input type="email" name="email" />
-</form>
-
 </body>
 </html>
