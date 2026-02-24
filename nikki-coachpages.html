@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nikki — Landing Pages for Coaches</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --cream:       #faf6f0;
+  --cream-deep:  #f0e9de;
+  --teal:        #1a4a4a;
+  --teal-mid:    #2a6b6b;
+  --teal-light:  #e8f2f2;
+  --orange:      #e8622a;
+  --orange-hover:#cf4f1a;
+  --orange-glow: rgba(232,98,42,0.15);
+  --ink:         #1a1714;
+  --muted:       #6b625a;
+  --border:      rgba(26,74,74,0.12);
+  --border-warm: rgba(26,74,74,0.08);
+  --gap:         clamp(80px, 10vw, 130px);
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  overflow-x: hidden;
+  line-height: 1.65;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 18px 52px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(250,246,240,0.94);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px; font-weight: 600;
+  color: var(--teal); text-decoration: none;
+}
+.nav-logo span { color: var(--orange); }
+.nav-links { display: flex; align-items: center; gap: 32px; }
+.nav-link {
+  font-size: 13px; color: var(--muted); text-decoration: none;
+  letter-spacing: 0.04em; transition: color 0.2s;
+}
+.nav-link:hover { color: var(--teal); }
+.nav-cta {
+  display: inline-block;
+  background: var(--orange); color: white; text-decoration: none;
+  font-size: 12px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 11px 26px; border-radius: 3px;
+  transition: background 0.22s, transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 16px var(--orange-glow);
+}
+.nav-cta:hover { background: var(--orange-hover); transform: translateY(-1px); }
+
+/* ─── BUTTONS ─── */
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 13px; font-weight: 600;
+  letter-spacing: 0.09em; text-transform: uppercase;
+  text-decoration: none; border-radius: 3px;
+  padding: 16px 36px; cursor: pointer; border: none;
+  transition: all 0.22s ease;
+}
+.btn-orange {
+  background: var(--orange); color: white;
+  box-shadow: 0 6px 28px var(--orange-glow);
+}
+.btn-orange:hover {
+  background: var(--orange-hover); transform: translateY(-2px);
+  box-shadow: 0 10px 36px rgba(232,98,42,0.28);
+}
+.btn-orange svg { transition: transform 0.22s; }
+.btn-orange:hover svg { transform: translateX(4px); }
+.btn-outline {
+  background: transparent; color: var(--teal);
+  border: 1.5px solid var(--teal);
+}
+.btn-outline:hover { background: var(--teal); color: white; }
+.btn-ghost-sm {
+  font-size: 13px; font-weight: 400; color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(107,98,90,0.3);
+  padding-bottom: 2px; transition: color 0.2s, border-color 0.2s;
+}
+.btn-ghost-sm:hover { color: var(--teal); border-color: var(--teal); }
+.btn-white {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: white; color: var(--orange);
+  font-size: 13px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  text-decoration: none; padding: 16px 40px; border-radius: 3px;
+  transition: all 0.22s;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+}
+.btn-white:hover { background: var(--ink); color: white; transform: translateY(-2px); }
+.btn-white svg { transition: transform 0.22s; }
+.btn-white:hover svg { transform: translateX(4px); }
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 88vh;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 130px 52px 90px;
+  max-width: 860px; margin: 0 auto;
+  text-align: center;
+}
+.hero-left { animation: fadeUp 0.85s ease both; }
+
+.eyebrow {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--teal); margin-bottom: 28px;
+}
+.eyebrow-line { display: inline-block; width: 36px; height: 1.5px; background: var(--teal); opacity: 0.4; }
+
+h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(46px, 6vw, 76px);
+  font-weight: 300; line-height: 1.06;
+  color: var(--ink); margin-bottom: 28px;
+}
+h1 em { font-style: italic; color: var(--teal); }
+
+.hero-sub {
+  font-size: 18px; font-weight: 300; color: var(--muted);
+  line-height: 1.72; max-width: 580px; margin: 0 auto 18px;
+}
+.hero-nudge {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  font-size: 12px; color: var(--orange);
+  font-weight: 500; letter-spacing: 0.06em; margin-bottom: 40px;
+}
+.nudge-dot {
+  width: 6px; height: 6px; background: var(--orange);
+  border-radius: 50%; animation: pulse 2s ease infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity:1; transform:scale(1); }
+  50%      { opacity:.5; transform:scale(.7); }
+}
+.hero-actions { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; }
+
+.hero-badges {
+  display: flex; align-items: center; justify-content: center;
+  gap: 48px; flex-wrap: wrap;
+  margin-top: 52px; padding-top: 40px;
+  border-top: 1px solid var(--border);
+}
+.hero-badge-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.badge-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 36px; font-weight: 300; line-height: 1; color: var(--teal);
+}
+.badge-label { font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+
+/* ─── PROOF STRIP ─── */
+.proof-strip {
+  background: var(--teal); padding: 26px 52px;
+  display: flex; align-items: center; justify-content: center; gap: 56px; flex-wrap: wrap;
+}
+.proof-item { display: flex; align-items: center; gap: 12px; font-size: 13px; color: rgba(255,255,255,0.65); }
+.proof-check {
+  width: 22px; height: 22px; border: 1px solid rgba(232,98,42,0.6);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.proof-check svg { color: var(--orange); }
+
+/* ─── SECTIONS ─── */
+section { padding: var(--gap) 52px; }
+.section-inner { max-width: 1140px; margin: 0 auto; }
+
+.s-label {
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--orange); margin-bottom: 18px;
+  display: flex; align-items: center; gap: 10px;
+}
+.s-label::before { content: ''; display: inline-block; width: 28px; height: 1.5px; background: var(--orange); }
+.s-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(34px, 3.8vw, 52px);
+  font-weight: 300; line-height: 1.12; margin-bottom: 18px;
+}
+.s-title em { font-style: italic; color: var(--teal); }
+.s-sub { font-size: 16px; font-weight: 300; color: var(--muted); line-height: 1.72; max-width: 560px; }
+
+/* ─── WHO ─── */
+.who { background: var(--teal); }
+.who .s-title { color: white; }
+.who .s-sub { color: rgba(255,255,255,0.55); }
+
+.who-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; margin-top: 56px; border-radius: 4px; overflow: hidden; }
+.who-card {
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+  padding: 48px 44px; position: relative; transition: background 0.3s;
+}
+.who-card:hover { background: rgba(255,255,255,0.09); }
+.who-card::before {
+  content: ''; position: absolute; top: 0; left: 44px;
+  width: 40px; height: 3px; background: var(--orange); border-radius: 0 0 3px 3px;
+}
+.who-icon {
+  width: 52px; height: 52px; border: 1px solid rgba(232,98,42,0.35);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  margin-bottom: 28px; color: var(--orange);
+}
+.who-card h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px; font-weight: 400; color: white; margin-bottom: 14px; line-height: 1.2;
+}
+.who-card p { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.72; margin-bottom: 28px; }
+.who-checks { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
+.who-checks li {
+  display: flex; align-items: flex-start; gap: 12px;
+  font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.5;
+}
+.who-checks li::before {
+  content: ''; width: 16px; height: 16px; flex-shrink: 0;
+  background: var(--orange); border-radius: 50%; margin-top: 2px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: center;
+}
+.who-note { font-size: 11px; color: rgba(255,255,255,0.3); margin-top: 10px; letter-spacing: 0.06em; }
+
+/* ─── PROBLEM ─── */
+.problem { background: var(--cream-deep); }
+.problem-split { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 80px; align-items: start; }
+.problem-list { list-style: none; margin-top: 8px; }
+.problem-item {
+  display: flex; align-items: flex-start; gap: 20px;
+  padding: 22px 0; border-bottom: 1px solid var(--border);
+}
+.problem-item:first-child { border-top: 1px solid var(--border); }
+.p-num { font-family: 'Cormorant Garamond', serif; font-size: 12px; color: var(--orange); flex-shrink: 0; padding-top: 3px; width: 26px; }
+.p-text { font-size: 14px; color: var(--muted); line-height: 1.65; }
+.p-text strong { color: var(--ink); font-weight: 500; }
+
+/* ─── CTA BAND ─── */
+.cta-band {
+  background: var(--orange); padding: 60px 52px; text-align: center; position: relative; overflow: hidden;
+}
+.cta-band::before {
+  content: ''; position: absolute; inset: 0;
+  background-image: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.08) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 50%, rgba(255,255,255,0.06) 0%, transparent 50%);
+}
+.cta-band h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(30px, 4vw, 48px); font-weight: 300; color: white;
+  line-height: 1.1; margin-bottom: 14px;
+}
+.cta-band h2 em { font-style: italic; }
+.cta-band p { font-size: 15px; color: rgba(255,255,255,0.8); margin-bottom: 36px; }
+
+/* ─── OFFER ─── */
+.offers-header { text-align: center; max-width: 620px; margin: 0 auto 60px; }
+.offer-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 2px; background: var(--border); border-radius: 4px; overflow: hidden;
+}
+.offer-card {
+  background: white; padding: 48px 40px;
+  display: flex; flex-direction: column; position: relative;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.offer-card:hover { transform: translateY(-3px); box-shadow: 0 16px 60px rgba(26,74,74,0.1); z-index: 1; }
+.offer-card.featured { background: var(--teal); }
+.offer-card.featured::before {
+  content: 'Most Popular'; position: absolute; top: -1px; left: 50%; transform: translateX(-50%);
+  background: var(--orange); color: white; font-size: 10px; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase; padding: 6px 18px; border-radius: 0 0 3px 3px; white-space: nowrap;
+}
+.offer-card.featured .offer-tag { color: var(--orange); border-color: var(--orange); }
+.offer-card.featured h3 { color: white; }
+.offer-card.featured .offer-desc { color: rgba(255,255,255,0.55); }
+.offer-card.featured .feature-item { color: rgba(255,255,255,0.75); }
+.offer-card.featured .feature-item::before { background: var(--orange); }
+.offer-card.featured .offer-price { color: white; }
+.offer-card.featured .price-note { color: rgba(255,255,255,0.35); }
+
+.offer-tag {
+  display: inline-block; font-size: 10px; font-weight: 600;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--teal); border: 1px solid var(--teal);
+  padding: 5px 13px; border-radius: 2px; margin-bottom: 24px; align-self: flex-start;
+}
+.offer-card h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px; font-weight: 400; line-height: 1.2; margin-bottom: 14px; color: var(--ink);
+}
+.offer-desc { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 28px; flex-grow: 1; }
+.feature-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 36px; }
+.feature-item { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: var(--ink); line-height: 1.5; }
+.feature-item::before {
+  content: ''; width: 14px; height: 14px; flex-shrink: 0;
+  background: var(--teal); border-radius: 50%; margin-top: 3px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='9' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: center;
+}
+.offer-price { font-family: 'Cormorant Garamond', serif; font-size: 52px; font-weight: 300; color: var(--teal); line-height: 1; margin-bottom: 4px; }
+.price-note { font-size: 11px; color: var(--muted); letter-spacing: 0.06em; margin-bottom: 28px; }
+
+/* ─── HOW ─── */
+.how { background: var(--cream-deep); }
+.steps-wrap {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 2px; margin-top: 60px; background: var(--border-warm); border-radius: 4px; overflow: hidden;
+}
+.step { background: var(--cream); padding: 48px 40px; position: relative; transition: background 0.25s; }
+.step:hover { background: white; }
+.step-num {
+  font-family: 'Cormorant Garamond', serif; font-size: 88px; font-weight: 300; line-height: 1;
+  color: rgba(26,74,74,0.07); position: absolute; top: 16px; right: 24px; pointer-events: none;
+}
+.step-icon {
+  width: 46px; height: 46px; border: 1.5px solid var(--teal);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  color: var(--teal); margin-bottom: 24px;
+}
+.step h4 { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 400; margin-bottom: 12px; }
+.step p { font-size: 14px; color: var(--muted); line-height: 1.7; }
+.steps-wrap .step:not(:last-child)::after {
+  content: '→'; position: absolute; top: 50%; right: -14px; transform: translateY(-50%);
+  font-size: 18px; color: var(--orange); z-index: 2;
+}
+
+/* ─── DELIVERABLES ─── */
+.deliv-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 1px; background: var(--border); border-radius: 4px; overflow: hidden; margin-top: 60px;
+}
+.deliv { background: var(--cream); padding: 36px 40px; display: flex; gap: 22px; transition: background 0.22s; }
+.deliv:hover { background: white; }
+.deliv-icon {
+  width: 42px; height: 42px; background: var(--teal-light);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--teal); flex-shrink: 0;
+}
+.deliv-content h4 { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 6px; }
+.deliv-content p { font-size: 13px; color: var(--muted); line-height: 1.62; }
+
+/* ─── FINAL CTA ─── */
+.final-cta {
+  background: var(--teal); padding: var(--gap) 52px;
+  text-align: center; position: relative; overflow: hidden;
+}
+.final-cta::after {
+  content: ''; position: absolute; bottom: -100px; left: 50%; transform: translateX(-50%);
+  width: 700px; height: 300px;
+  background: radial-gradient(ellipse, rgba(232,98,42,0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+.final-cta .s-title { color: white; max-width: 640px; margin: 0 auto 20px; }
+.final-cta .s-sub { color: rgba(255,255,255,0.5); margin: 0 auto 48px; }
+.cta-pair { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; }
+.cta-micro { font-size: 11px; color: rgba(255,255,255,0.3); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 16px; }
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--ink); padding: 32px 52px;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+}
+.footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: white; text-decoration: none; }
+.footer-logo span { color: var(--orange); }
+.footer-copy { font-size: 12px; color: rgba(255,255,255,0.3); }
+.footer-ig { display: flex; align-items: center; gap: 8px; font-size: 12px; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
+.footer-ig:hover { color: var(--orange); }
+
+/* ─── FORM ─── */
+.form-wrap {
+  max-width: 560px; margin: 0 auto;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 6px; padding: 48px;
+}
+.form-group { margin-bottom: 28px; }
+.form-label {
+  display: block; font-size: 13px; font-weight: 500;
+  color: rgba(255,255,255,0.85); letter-spacing: 0.04em;
+  margin-bottom: 12px;
+}
+.form-input {
+  width: 100%; padding: 14px 18px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 3px; color: white;
+  font-family: 'DM Sans', sans-serif; font-size: 14px;
+  transition: border-color 0.2s, background 0.2s;
+  outline: none;
+}
+.form-input::placeholder { color: rgba(255,255,255,0.3); }
+.form-input:focus {
+  border-color: var(--orange);
+  background: rgba(255,255,255,0.12);
+}
+
+/* Radio buttons */
+.radio-group { display: flex; flex-direction: column; gap: 10px; }
+.radio-option { cursor: pointer; }
+.radio-option input[type="radio"] { display: none; }
+.radio-box {
+  display: flex; align-items: center; gap: 12px;
+  padding: 13px 18px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 3px; font-size: 13px;
+  color: rgba(255,255,255,0.65);
+  transition: all 0.2s; cursor: pointer;
+}
+.radio-box:hover {
+  background: rgba(255,255,255,0.1);
+  color: white; border-color: rgba(255,255,255,0.25);
+}
+.radio-dot {
+  width: 16px; height: 16px; flex-shrink: 0;
+  border: 1.5px solid rgba(255,255,255,0.3);
+  border-radius: 50%; transition: all 0.2s;
+}
+.radio-option input[type="radio"]:checked + .radio-box {
+  background: rgba(232,98,42,0.15);
+  border-color: var(--orange); color: white;
+}
+.radio-option input[type="radio"]:checked + .radio-box .radio-dot {
+  background: var(--orange); border-color: var(--orange);
+}
+
+.form-submit {
+  width: 100%; padding: 17px 32px;
+  background: var(--orange); color: white;
+  border: none; border-radius: 3px; cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px; font-weight: 600;
+  letter-spacing: 0.09em; text-transform: uppercase;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  transition: all 0.22s;
+  box-shadow: 0 6px 28px rgba(232,98,42,0.3);
+  margin-top: 8px;
+}
+.form-submit:hover {
+  background: var(--orange-hover); transform: translateY(-2px);
+  box-shadow: 0 10px 36px rgba(232,98,42,0.4);
+}
+.form-submit svg { transition: transform 0.22s; }
+.form-submit:hover svg { transform: translateX(4px); }
+
+.form-note {
+  font-size: 11px; color: rgba(255,255,255,0.3);
+  text-align: center; letter-spacing: 0.06em;
+  text-transform: uppercase; margin-top: 16px;
+}
+
+/* Thank you state */
+.form-thankyou {
+  max-width: 480px; margin: 0 auto; text-align: center;
+}
+.thankyou-icon {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: rgba(232,98,42,0.2);
+  border: 1px solid var(--orange);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--orange); margin: 0 auto 28px;
+}
+.form-thankyou h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px; font-weight: 300; color: white;
+  line-height: 1.2; margin-bottom: 14px;
+}
+.form-thankyou p {
+  font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.7;
+}
+@keyframes fadeUp { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
+.reveal { opacity:0; transform:translateY(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
+.reveal.in { opacity:1; transform:translateY(0); }
+.d1 { transition-delay: 0.1s; } .d2 { transition-delay: 0.2s; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 960px) {
+  nav { padding: 16px 24px; }
+  .nav-links { display: none; }
+  .hero { padding: 100px 24px 60px; }
+  .hero-badges { gap: 28px; }
+  section { padding: 72px 24px; }
+  .proof-strip { padding: 20px 24px; gap: 28px; }
+  .who-grid, .problem-split, .offer-grid, .steps-wrap, .deliv-grid { grid-template-columns: 1fr; }
+  .steps-wrap .step::after { display: none; }
+  .cta-pair { flex-direction: column; }
+  footer { flex-direction: column; align-items: flex-start; }
+  .s-label { justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Nikki<span>.</span></a>
+  <div class="nav-links">
+    <a href="#who" class="nav-link">Who it's for</a>
+    <a href="#offer" class="nav-link">Services</a>
+    <a href="#how" class="nav-link">How it works</a>
+  </div>
+  <a href="#contact" class="nav-cta">Get Free Audit →</a>
+</nav>
+
+<!-- HERO -->
+<div style="background: var(--cream);">
+  <div class="hero">
+    <div class="hero-left">
+      <p class="eyebrow"><span class="eyebrow-line"></span>Landing Pages for Coaches<span class="eyebrow-line"></span></p>
+      <h1>Your coaching is brilliant.<br>Your landing page should <em>turn visitors into booked calls.</em></h1>
+      <p class="hero-sub">I build clean, conversion-focused landing pages for coaches and trainers — designed to move Instagram visitors from "just looking" to booking a discovery call.</p>
+      <div class="hero-nudge">
+        <span class="nudge-dot"></span>
+        Early-bird pricing — 3 spots at $150 before price increases to $200
+      </div>
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-orange">
+          Start My Page — $150
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a href="#contact" class="btn-ghost-sm">Get a free audit first</a>
+      </div>
+
+      <div class="hero-badges">
+        <div class="hero-badge-item">
+          <span class="badge-num">$150</span>
+          <span class="badge-label">Flat fee, no surprises</span>
+        </div>
+        <div class="hero-badge-item">
+          <span class="badge-num" style="color:var(--orange);">3–5</span>
+          <span class="badge-label">Days to go live</span>
+        </div>
+        <div class="hero-badge-item">
+          <span class="badge-num">2</span>
+          <span class="badge-label">Revision rounds included</span>
+        </div>
+        <div class="hero-badge-item">
+          <span class="badge-num" style="color:var(--orange);">Free</span>
+          <span class="badge-label">Audit or wireframe first</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROOF STRIP -->
+<div class="proof-strip">
+  <div class="proof-item">
+    <div class="proof-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+    Built exclusively for coaches &amp; trainers
+  </div>
+  <div class="proof-item">
+    <div class="proof-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+    Delivered in 3–5 days
+  </div>
+  <div class="proof-item">
+    <div class="proof-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+    One flat fee — no subscriptions ever
+  </div>
+  <div class="proof-item">
+    <div class="proof-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+    Free audit or wireframe — zero obligation
+  </div>
+</div>
+
+<!-- WHO IS THIS FOR -->
+<section class="who" id="who">
+  <div class="section-inner">
+    <div class="reveal" style="text-align:center; max-width:600px; margin:0 auto 56px;">
+      <p class="s-label" style="justify-content:center;">Who this is for</p>
+      <h2 class="s-title" style="color:white;">Whether you have a page or not —<br><em>I've got you covered</em></h2>
+      <p class="s-sub" style="color:rgba(255,255,255,0.55); margin:0 auto;">Two very different situations. One clear result: a page that converts.</p>
+    </div>
+    <div class="who-grid">
+
+      <!-- No LP -->
+      <div class="who-card reveal">
+        <div class="who-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+        </div>
+        <h3>You don't have a landing page yet</h3>
+        <p>You're sending people to your Instagram bio, a Linktree, or a Notion doc. It's costing you clients you don't even know you're losing.</p>
+        <ul class="who-checks">
+          <li>Relying on DMs alone to convert your followers</li>
+          <li>You have the offer — just no dedicated page for it</li>
+          <li>You've been putting it off because it feels complicated</li>
+          <li>You want something live fast, without the headache</li>
+        </ul>
+        <a href="#contact" class="btn btn-orange" style="font-size:12px; padding:13px 28px; align-self:flex-start;">
+          Start My Page — $150
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <p class="who-note">Fill in a quick form — I'll get started within 24hrs</p>
+      </div>
+
+      <!-- Has LP -->
+      <div class="who-card reveal d1">
+        <div class="who-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        </div>
+        <h3>You have a page — but it's not converting</h3>
+        <p>Traffic comes in from Instagram but bookings don't follow. Something on the page is quietly breaking the chain — and it's usually very fixable.</p>
+        <ul class="who-checks">
+          <li>Visitors land but don't book or reach out</li>
+          <li>Your page is cluttered, outdated, or confusing on mobile</li>
+          <li>No clear CTA, missing pricing, or zero social proof</li>
+          <li>You know something's off but can't pinpoint what</li>
+        </ul>
+        <a href="#contact" class="btn btn-orange" style="font-size:12px; padding:13px 28px; align-self:flex-start;">
+          Get a Free Page Audit
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <p class="who-note">Takes 60 seconds — I'll reply within 24 hours</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem">
+  <div class="section-inner">
+    <div class="problem-split">
+      <div class="reveal">
+        <p class="s-label">The silent killers</p>
+        <h2 class="s-title">Why visitors leave without booking</h2>
+        <p class="s-sub">Most coaching pages have at least one of these — invisible to the owner, obvious to a visitor.</p>
+      </div>
+      <ul class="problem-list reveal d1">
+        <li class="problem-item">
+          <span class="p-num">01</span>
+          <span class="p-text"><strong>No 'Book Now' button in sight</strong> — visitors read everything and have nowhere obvious to go next</span>
+        </li>
+        <li class="problem-item">
+          <span class="p-num">02</span>
+          <span class="p-text"><strong>Pricing is a mystery</strong> — so they hesitate or quietly leave</span>
+        </li>
+        <li class="problem-item">
+          <span class="p-num">03</span>
+          <span class="p-text"><strong>Too many competing offers</strong> — courses, freebies, podcast, community all fighting for attention at once</span>
+        </li>
+        <li class="problem-item">
+          <span class="p-num">04</span>
+          <span class="p-text"><strong>Broken on mobile</strong> — 80%+ of your Instagram traffic is on a phone. Most coaching pages look rough there</span>
+        </li>
+        <li class="problem-item">
+          <span class="p-num">05</span>
+          <span class="p-text"><strong>Zero social proof</strong> — no testimonials, no client results. Cold visitors need a reason to trust you first</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- DEMO SECTION -->
+<section>
+  <div class="section-inner">
+    <div class="reveal" style="text-align:center; max-width:680px; margin:0 auto;">
+      <p class="s-label" style="justify-content:center;">Example build</p>
+      <h2 class="s-title">Demo: Sarah Thompson — <em>Mindset Coach</em></h2>
+      <p class="s-sub" style="margin:0 auto;">
+        Here's what I'd build for a mindset coach selling a €1,200 transformation program.
+      </p>
+    </div>
+
+    <div class="deliv-grid" style="margin-top:60px;">
+      <div class="deliv reveal">
+        <div class="deliv-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+        </div>
+        <div class="deliv-content">
+          <h4>Before</h4>
+          <p>Linktree with multiple links. No pricing clarity. No testimonials. No clear "Book Now" button. Visitors scroll — then leave.</p>
+        </div>
+      </div>
+      <div class="deliv reveal d1">
+        <div class="deliv-icon" style="background: rgba(232,98,42,0.1);">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div class="deliv-content">
+          <h4>After</h4>
+          <p><strong>Headline:</strong> Break Self-Sabotage in 90 Days — Without Burning Out</p>
+          <p style="margin-top:8px;"><strong>Offer:</strong> Structured mindset coaching for ambitious women ready to stop repeating old patterns.</p>
+          <p style="margin-top:8px;"><strong>Includes:</strong> Testimonials, program breakdown, transparent €1,200 pricing, and one clear "Book Discovery Call" CTA.</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top:48px;">
+      <a href="#contact" class="btn btn-orange">
+        Want Something Like This?
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- MID-PAGE ORANGE CTA BAND -->
+<div class="cta-band">
+  <h2>Sound familiar? <em>Let's fix it.</em></h2>
+  <p>Start with a free audit — I'll tell you exactly what's costing you bookings and what to do about it.</p>
+  <a href="#contact" class="btn-white">
+    Start With a Free Audit
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+  </a>
+</div>
+
+<!-- OFFER -->
+<section id="offer">
+  <div class="section-inner">
+    <div class="offers-header reveal">
+      <p class="s-label" style="justify-content:center;">Services &amp; pricing</p>
+      <h2 class="s-title">Three ways to work with me</h2>
+      <p class="s-sub" style="margin:0 auto;">Start free. Build when you're ready.</p>
+    </div>
+    <div class="offer-grid">
+
+      <div class="offer-card reveal">
+        <span class="offer-tag">Free — Have a page?</span>
+        <h3>Page Audit</h3>
+        <p class="offer-desc">I'll review your existing page and send you a personalised breakdown of exactly what's blocking conversions — and what to fix first.</p>
+        <ul class="feature-list">
+          <li class="feature-item">Full friction-point analysis</li>
+          <li class="feature-item">Mobile experience check</li>
+          <li class="feature-item">CTA &amp; conversion review</li>
+          <li class="feature-item">Prioritised fix list, plain English</li>
+          <li class="feature-item">Back to you within 48 hours</li>
+        </ul>
+        <div class="offer-price">Free</div>
+        <p class="price-note">No pitch. Just useful feedback.</p>
+        <a href="#contact" class="btn btn-outline">Get Your Free Audit</a>
+      </div>
+
+      <div class="offer-card featured reveal d1">
+        <span class="offer-tag">Done for you</span>
+        <h3>Full Landing Page Build</h3>
+        <p class="offer-desc">A clean, focused page designed around your coaching offer — built to turn Instagram visitors into booked calls. Live in 3–5 days.</p>
+        <ul class="feature-list">
+          <li class="feature-item">Custom design around your offer</li>
+          <li class="feature-item">Mobile-first, fast-loading</li>
+          <li class="feature-item">Clear CTA that drives bookings</li>
+          <li class="feature-item">Testimonials &amp; trust section</li>
+          <li class="feature-item">Transparent pricing section</li>
+          <li class="feature-item">Ready in 3–5 days</li>
+        </ul>
+        <div class="offer-price">$150</div>
+        <p class="price-note">Early-bird price — first 3 clients only.<br>Moving to $200 after that.</p>
+        <a href="#contact" class="btn btn-orange">
+          Start My Page — $150
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+
+      <div class="offer-card reveal d2">
+        <span class="offer-tag">Free — No page yet?</span>
+        <h3>Free Wireframe</h3>
+        <p class="offer-desc">No landing page yet? I'll put together a free wireframe showing exactly what your page should look like — built around your specific offer and audience.</p>
+        <ul class="feature-list">
+          <li class="feature-item">Custom wireframe for your offer</li>
+          <li class="feature-item">Shows layout, sections &amp; CTAs</li>
+          <li class="feature-item">Built around your niche &amp; audience</li>
+          <li class="feature-item">A clear picture of what you need</li>
+          <li class="feature-item">Yours to keep, no strings attached</li>
+        </ul>
+        <div class="offer-price">Free</div>
+        <p class="price-note">Tell me about your offer to start.</p>
+        <a href="#contact" class="btn btn-outline">Get Your Free Wireframe</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="section-inner">
+    <div class="reveal" style="text-align:center; max-width:560px; margin:0 auto;">
+      <p class="s-label" style="justify-content:center;">The process</p>
+      <h2 class="s-title">Simple. Fast. <em>No back-and-forth.</em></h2>
+    </div>
+    <div class="steps-wrap">
+      <div class="step reveal">
+        <span class="step-num">1</span>
+        <div class="step-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <h4>You fill in a quick 60-second form</h4>
+        <p>Tell me about your coaching offer and where you're at. It takes under a minute — I review every submission personally.</p>
+      </div>
+      <div class="step reveal d1">
+        <span class="step-num">2</span>
+        <div class="step-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg></div>
+        <h4>I get to work</h4>
+        <p>I audit your existing page or design your new one — structured around your offer, your audience, and one clear conversion goal.</p>
+      </div>
+      <div class="step reveal d2">
+        <span class="step-num">3</span>
+        <div class="step-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <h4>You start converting</h4>
+        <p>Your audit lands in 48hrs. Your page goes live in 3–5 days. Built to turn Instagram visitors into booked calls.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DELIVERABLES -->
+<section>
+  <div class="section-inner">
+    <div class="reveal" style="text-align:center; max-width:580px; margin:0 auto;">
+      <p class="s-label" style="justify-content:center;">What's included</p>
+      <h2 class="s-title">Everything your page needs.<br><em>Nothing it doesn't.</em></h2>
+    </div>
+    <div class="deliv-grid">
+      <div class="deliv reveal">
+        <div class="deliv-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg></div>
+        <div class="deliv-content">
+          <h4>Compelling hero section</h4>
+          <p>A headline and CTA that tells visitors what you do, who it's for, and what to do next — in under 3 seconds.</p>
+        </div>
+      </div>
+      <div class="deliv reveal d1">
+        <div class="deliv-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div class="deliv-content">
+          <h4>Social proof &amp; testimonials</h4>
+          <p>The single fastest trust-builder for visitors who don't know you yet. Client results, quotes, or wins displayed clearly.</p>
+        </div>
+      </div>
+      <div class="deliv reveal">
+        <div class="deliv-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+        <div class="deliv-content">
+          <h4>Mobile-first design</h4>
+          <p>Built to look perfect on every phone — because that's where your Instagram audience is reading it.</p>
+        </div>
+      </div>
+      <div class="deliv reveal d1">
+        <div class="deliv-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <div class="deliv-content">
+          <h4>Clear pricing section</h4>
+          <p>Transparent packages so visitors can make a confident decision without having to DM you to ask first.</p>
+        </div>
+      </div>
+      <div class="deliv reveal">
+        <div class="deliv-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <div class="deliv-content">
+          <h4>"How it works" section</h4>
+          <p>A simple 3-step section that removes hesitation — visitors see what happens when they reach out, so they actually do it.</p>
+        </div>
+      </div>
+      <div class="deliv reveal d1">
+        <div class="deliv-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+        <div class="deliv-content">
+          <h4>One powerful CTA throughout</h4>
+          <p>No confusion, no decision paralysis. One action, placed at the right moments, consistently drives more bookings.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT FORM SECTION -->
+<section class="final-cta" id="contact">
+  <div class="section-inner" style="position:relative; z-index:1;">
+
+    <div class="reveal" style="max-width:600px; margin:0 auto; text-align:center;">
+      <p class="s-label" style="justify-content:center;">Free Conversion Review</p>
+      <h2 class="s-title">Let's fix what's blocking your bookings.</h2>
+      <p class="s-sub" style="margin:0 auto 52px;">Answer 3 quick questions. I'll personally review your situation and reply within 24 hours.</p>
+    </div>
+
+    <!-- NETLIFY FORM -->
+    <div class="form-wrap reveal d1" id="form-container">
+      <form name="coach-audit" method="POST" data-netlify="true" onsubmit="handleSubmit(event)">
+        <input type="hidden" name="form-name" value="coach-audit">
+
+        <!-- Q1 -->
+        <div class="form-group">
+          <label class="form-label">What type of coaching do you offer?</label>
+          <input type="text" name="coaching_type" class="form-input"
+            placeholder="e.g. Mindset coaching for female founders" required>
+        </div>
+
+        <!-- Q2 -->
+        <div class="form-group">
+          <label class="form-label">Which of these sounds most like you right now?</label>
+          <div class="radio-group">
+            <label class="radio-option">
+              <input type="radio" name="situation" value="No landing page" required>
+              <div class="radio-box"><div class="radio-dot"></div>I don't have a landing page — I'm using my bio link</div>
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="situation" value="Not converting">
+              <div class="radio-box"><div class="radio-dot"></div>I have a page but it's not bringing bookings</div>
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="situation" value="Outdated">
+              <div class="radio-box"><div class="radio-dot"></div>My page looks outdated and needs an upgrade</div>
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="situation" value="Unsure">
+              <div class="radio-box"><div class="radio-dot"></div>Something feels off — I'm not sure what</div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="form-group">
+          <label class="form-label">Where should I send your personalised fix?</label>
+          <input type="email" name="email" class="form-input"
+            placeholder="your@email.com" required>
+        </div>
+
+        <button type="submit" class="form-submit">
+          Send Me My Free Audit
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </button>
+
+        <p class="form-note">No spam. Just clear, useful feedback.</p>
+      </form>
+    </div>
+
+    <!-- THANK YOU STATE -->
+    <div class="form-thankyou" id="form-thankyou" style="display:none;">
+      <div class="thankyou-icon">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <h3>You're in — I'll be in touch within 24 hours.</h3>
+      <p>While you wait, come say hi on Instagram. Daily tips on what makes coaching pages convert.</p>
+      <a href="https://www.instagram.com/nikki.coachpages/" target="_blank" class="btn btn-orange" style="margin-top:28px; display:inline-flex;">
+        Follow @nikki.coachpages
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="footer-logo">Nikki<span>.</span></a>
+  <p class="footer-copy">© 2026 Nikki — Landing Pages for Coaches</p>
+  <a href="https://www.instagram.com/nikki.coachpages/" target="_blank" class="footer-ig">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+    @nikki.coachpages
+  </a>
+</footer>
+
+<script>
+  // Scroll reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // Form submit — show thank you state instead of redirecting
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const form = e.target;
+    const data = new FormData(form);
+    try {
+      await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(data).toString()
+      });
+      document.getElementById('form-container').style.display = 'none';
+      document.getElementById('form-thankyou').style.display = 'block';
+    } catch (err) {
+      alert('Something went wrong — please DM me on Instagram directly.');
+    }
+  }
+</script>
+</body>
+</html>
