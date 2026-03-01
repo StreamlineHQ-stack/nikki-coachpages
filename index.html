@@ -528,7 +528,7 @@ footer {
       </div>
       <div class="hero-actions">
         <a href="#contact" class="btn btn-orange">
-          Start My Page — $150
+          Claim Your Spot — $150
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
         <a href="#contact" class="btn-ghost-sm">Get a free audit first</a>
@@ -701,7 +701,7 @@ footer {
 
     <div style="text-align:center; margin-top:48px;">
       <a href="#contact" class="btn btn-orange">
-        Want Something Like This?
+        See What I'd Build For You
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </a>
     </div>
@@ -880,16 +880,8 @@ footer {
 
     <!-- NETLIFY FORM -->
     <div class="form-wrap reveal d1" id="form-container">
-    <form name="coach-audit"
-      method="POST"
-      action="/"
-      data-netlify="true"
-      netlify-honeypot="bot-field"
-      onsubmit="handleSubmit(event)">
-    <input type="hidden" name="form-name" value="coach-audit">
-<p hidden>
-  <label>Don’t fill this out: <input name="bot-field"></label>
-</p>
+      <form name="coach-audit" method="POST" data-netlify="true" onsubmit="handleSubmit(event)">
+        <input type="hidden" name="form-name" value="coach-audit">
 
         <!-- Q1 -->
         <div class="form-group">
@@ -918,6 +910,10 @@ footer {
               <input type="radio" name="situation" value="Unsure">
               <div class="radio-box"><div class="radio-dot"></div>Something feels off — I'm not sure what</div>
             </label>
+            <label class="radio-option">
+              <input type="radio" name="situation" value="Ready">
+              <div class="radio-box"><div class="radio-dot"></div>I'm ready — I just want to get my page built</div>
+            </label>
           </div>
         </div>
 
@@ -928,8 +924,8 @@ footer {
             placeholder="your@email.com" required>
         </div>
 
-        <button type="submit" class="form-submit">
-          Send Me My Free Audit
+        <button type="submit" class="form-submit" id="submit-btn">
+          Get My Free Audit
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
           </svg>
@@ -944,8 +940,8 @@ footer {
       <div class="thankyou-icon">
         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
       </div>
-      <h3>You're in — I'll be in touch within 24 hours.</h3>
-      <p>While you wait, come say hi on Instagram. Daily tips on what makes coaching pages convert.</p>
+      <h3 id="thankyou-heading">You're in — I'll be in touch within 24 hours.</h3>
+      <p id="thankyou-body">While you wait, come say hi on Instagram. Daily tips on what makes coaching pages convert.</p>
       <a href="https://www.instagram.com/nikki.coachpages/" target="_blank" class="btn btn-orange" style="margin-top:28px; display:inline-flex;">
         Follow @nikki.coachpages
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
@@ -972,35 +968,99 @@ footer {
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
+  // ── DYNAMIC BUTTON & THANK-YOU BASED ON Q2 ──────────────────
+  const btnConfig = {
+    'No landing page': {
+      btn:     'Get My Free Wireframe',
+      heading: 'Perfect — your free wireframe is on its way.',
+      body:    'I\'ll build a custom wireframe for your coaching offer and send it within 24 hours. Check your inbox soon.'
+    },
+    'Not converting': {
+      btn:     'Get My Free Audit',
+      heading: 'Got it — your free audit is coming.',
+      body:    'I\'ll review your page and send you a personalised breakdown of exactly what\'s blocking bookings — within 24 hours.'
+    },
+    'Outdated': {
+      btn:     'Get My Free Audit',
+      heading: 'Got it — your free audit is coming.',
+      body:    'I\'ll review your page and send you a clear, prioritised fix list within 24 hours. No jargon, just what to change and why.'
+    },
+    'Unsure': {
+      btn:     'Get My Free Audit',
+      heading: 'Leave it with me — I\'ll figure it out.',
+      body:    'I\'ll take a look at your setup and send you a clear picture of what\'s going on within 24 hours.'
+    },
+    'Ready': {
+      btn:     'Claim My Spot — $150',
+      heading: 'You\'re in — I\'ll confirm your spot shortly.',
+      body:    'Check your inbox within a few hours. I\'ll send you everything you need to get started — including payment details and next steps.'
+    }
+  };
 
-  function encode(data) {
-  return Object.keys(data)
-    .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
-    .join("&");
-}
+  // Pre-select "Ready" and update button when "Start My Page" links are clicked
+  document.querySelectorAll('a[href="#contact"]').forEach(link => {
+    const text = link.textContent.trim();
+    if (text.startsWith('Start My Page') || text.startsWith('Claim Your Spot')) {
+      link.addEventListener('click', () => {
+        setTimeout(() => {
+          const readyRadio = document.querySelector('input[name="situation"][value="Ready"]');
+          if (readyRadio) {
+            readyRadio.checked = true;
+            readyRadio.dispatchEvent(new Event('change'));
+          }
+        }, 400); // slight delay to let scroll settle
+      });
+    }
+  });
 
-async function handleSubmit(e) {
-  e.preventDefault();
-  const form = e.target;
-
-  const formData = new FormData(form);
-  const data = {};
-  formData.forEach((value, key) => data[key] = value);
-
-  try {
-    await fetch("/", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: encode(data)
+  // Update button text live as they select an option
+  document.querySelectorAll('input[name="situation"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      const config = btnConfig[radio.value];
+      const btn = document.getElementById('submit-btn');
+      const label = config ? config.btn : 'Get My Free Audit';
+      // Update text node only, preserve the SVG
+      btn.firstChild.textContent = '\n          ' + label + '\n          ';
     });
+  });
 
-    document.getElementById("form-container").style.display = "none";
-    document.getElementById("form-thankyou").style.display = "block";
-
-  } catch (error) {
-    alert("Something went wrong. Please try again.");
+  // ── FORM SUBMIT ──────────────────────────────────────────────
+  function encode(data) {
+    return Object.keys(data)
+      .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+      .join('&');
   }
-}
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    const data = {};
+    formData.forEach((value, key) => data[key] = value);
+
+    const situation = data['situation'] || '';
+    const config = btnConfig[situation];
+
+    try {
+      await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: encode(data)
+      });
+
+      // Set dynamic thank-you content based on Q2 answer
+      document.getElementById('thankyou-heading').textContent =
+        config ? config.heading : 'You\'re in — I\'ll be in touch within 24 hours.';
+      document.getElementById('thankyou-body').textContent =
+        config ? config.body : 'While you wait, come say hi on Instagram. Daily tips on what makes coaching pages convert.';
+
+      document.getElementById('form-container').style.display = 'none';
+      document.getElementById('form-thankyou').style.display = 'block';
+
+    } catch (err) {
+      alert('Something went wrong — please DM me on Instagram directly.');
+    }
+  }
 </script>
 </body>
 </html>
