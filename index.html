@@ -1011,16 +1011,28 @@ footer {
     radio.addEventListener('change', () => updateSubmitBtn(radio.value));
   });
 
-  // ── PRE-SELECT "READY" only for paid CTAs ────────────────────
-  document.querySelectorAll('[data-preselect="ready"]').forEach(link => {
-    link.addEventListener('click', () => {
-      setTimeout(() => {
-        const readyRadio = document.querySelector('input[name="situation"][value="Ready"]');
-        if (readyRadio) {
-          readyRadio.checked = true;
-          updateSubmitBtn('Ready');
-        }
-      }, 450);
+  // ── HANDLE ALL #contact LINKS — prevent URL change, scroll manually ──
+  document.querySelectorAll('a[href="#contact"]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+
+      // Always reset radios and button first
+      document.querySelectorAll('input[name="situation"]').forEach(r => r.checked = false);
+      document.getElementById('submit-btn-label').textContent = 'Get My Free Audit';
+
+      // Scroll to form
+      document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+
+      // If paid CTA, pre-select Ready after scroll settles
+      if (link.hasAttribute('data-preselect')) {
+        setTimeout(() => {
+          const readyRadio = document.querySelector('input[name="situation"][value="Ready"]');
+          if (readyRadio) {
+            readyRadio.checked = true;
+            updateSubmitBtn('Ready');
+          }
+        }, 600);
+      }
     });
   });
 
