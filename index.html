@@ -925,7 +925,7 @@ footer {
         </div>
 
         <button type="submit" class="form-submit" id="submit-btn">
-          Get My Free Audit
+          <span id="submit-btn-label">Get My Free Audit</span>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
           </svg>
@@ -962,13 +962,13 @@ footer {
 </footer>
 
 <script>
-  // Scroll reveal
+  // ── SCROLL REVEAL ────────────────────────────────────────────
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-  // ── DYNAMIC BUTTON & THANK-YOU BASED ON Q2 ──────────────────
+  // ── CONFIG: what each Q2 answer does to button + thank-you ───
   const btnConfig = {
     'No landing page': {
       btn:     'Get My Free Wireframe',
@@ -997,27 +997,30 @@ footer {
     }
   };
 
-  // Pre-select "Ready" only when paid CTAs are clicked
+  // ── UPDATE BUTTON LABEL ──────────────────────────────────────
+  function updateSubmitBtn(value) {
+    const btn = document.getElementById('submit-btn');
+    const config = btnConfig[value];
+    const label = config ? config.btn : 'Get My Free Audit';
+    // Use a dedicated span for the label text — clean, no whitespace issues
+    document.getElementById('submit-btn-label').textContent = label;
+  }
+
+  // Listen for Q2 radio changes
+  document.querySelectorAll('input[name="situation"]').forEach(radio => {
+    radio.addEventListener('change', () => updateSubmitBtn(radio.value));
+  });
+
+  // ── PRE-SELECT "READY" only for paid CTAs ────────────────────
   document.querySelectorAll('[data-preselect="ready"]').forEach(link => {
     link.addEventListener('click', () => {
       setTimeout(() => {
         const readyRadio = document.querySelector('input[name="situation"][value="Ready"]');
         if (readyRadio) {
           readyRadio.checked = true;
-          readyRadio.dispatchEvent(new Event('change'));
+          updateSubmitBtn('Ready');
         }
-      }, 400);
-    });
-  });
-
-  // Update button text live as they select an option
-  document.querySelectorAll('input[name="situation"]').forEach(radio => {
-    radio.addEventListener('change', () => {
-      const config = btnConfig[radio.value];
-      const btn = document.getElementById('submit-btn');
-      const label = config ? config.btn : 'Get My Free Audit';
-      // Update text node only, preserve the SVG
-      btn.firstChild.textContent = '\n          ' + label + '\n          ';
+      }, 450);
     });
   });
 
@@ -1045,7 +1048,6 @@ footer {
         body: encode(data)
       });
 
-      // Set dynamic thank-you content based on Q2 answer
       document.getElementById('thankyou-heading').textContent =
         config ? config.heading : 'You\'re in — I\'ll be in touch within 24 hours.';
       document.getElementById('thankyou-body').textContent =
