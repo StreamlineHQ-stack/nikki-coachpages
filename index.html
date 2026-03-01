@@ -527,8 +527,7 @@ footer {
         Early-bird pricing — 3 spots at $150 before price increases to $200
       </div>
       <div class="hero-actions">
-        <a href="#contact" class="btn btn-orange">
-          Claim Your Spot — $150
+        <a href="#contact" class="btn btn-orange" data-preselect="ready">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
         <a href="#contact" class="btn-ghost-sm">Get a free audit first</a>
@@ -599,7 +598,7 @@ footer {
           <li>You've been putting it off because it feels complicated</li>
           <li>You want something live fast, without the headache</li>
         </ul>
-        <a href="#contact" class="btn btn-orange" style="font-size:12px; padding:13px 28px; align-self:flex-start;">
+        <a href="#contact" class="btn btn-orange" style="font-size:12px; padding:13px 28px; align-self:flex-start;" data-preselect="ready">
           Start My Page — $150
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
@@ -758,14 +757,8 @@ footer {
         </ul>
         <div class="offer-price">$150</div>
         <p class="price-note">Early-bird price — first 3 clients only.<br>Moving to $200 after that.</p>
-        <a href="#contact" class="btn btn-orange">
+        <a href="#contact" class="btn btn-orange" data-preselect="ready">
           Start My Page — $150
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
-      </div>
-
-      <div class="offer-card reveal d2">
-        <span class="offer-tag">Free — No page yet?</span>
         <h3>Free Wireframe</h3>
         <p class="offer-desc">No landing page yet? I'll put together a free wireframe showing exactly what your page should look like — built around your specific offer and audience.</p>
         <ul class="feature-list">
@@ -997,20 +990,17 @@ footer {
     }
   };
 
-  // Pre-select "Ready" and update button when "Start My Page" links are clicked
-  document.querySelectorAll('a[href="#contact"]').forEach(link => {
-    const text = link.textContent.trim();
-    if (text.startsWith('Start My Page') || text.startsWith('Claim Your Spot')) {
-      link.addEventListener('click', () => {
-        setTimeout(() => {
-          const readyRadio = document.querySelector('input[name="situation"][value="Ready"]');
-          if (readyRadio) {
-            readyRadio.checked = true;
-            readyRadio.dispatchEvent(new Event('change'));
-          }
-        }, 400); // slight delay to let scroll settle
-      });
-    }
+  // Pre-select "Ready" only when paid CTAs are clicked
+  document.querySelectorAll('[data-preselect="ready"]').forEach(link => {
+    link.addEventListener('click', () => {
+      setTimeout(() => {
+        const readyRadio = document.querySelector('input[name="situation"][value="Ready"]');
+        if (readyRadio) {
+          readyRadio.checked = true;
+          readyRadio.dispatchEvent(new Event('change'));
+        }
+      }, 400);
+    });
   });
 
   // Update button text live as they select an option
